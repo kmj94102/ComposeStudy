@@ -6,6 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -83,7 +85,12 @@ fun MessageCard(msg: Message) {
                 // surfaceColor 색상은 기본에서 표면으로 점진적으로 변경됩니다.
                 color = surfaceColor,
                 // animateContentSize 는 표면 크기를 점진적으로 변경합니다.
-                modifier = Modifier.animateContentSize().padding(1.dp)
+                modifier = Modifier.animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                ).padding(1.dp)
             ) {
                 Text(
                     text = msg.body,
